@@ -89,6 +89,8 @@ void Odometry_estimation_imgonly::visualOdometry(const cv::Mat& current_image) {
 
     cv::imshow("Mono SLAM", current_image);
   }
+  else{
+    prev_image = current_image;
 }
 
 void Odometry_estimation_imgonly::bundleAdjustment() {
