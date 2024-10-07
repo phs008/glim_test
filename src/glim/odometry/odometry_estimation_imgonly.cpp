@@ -27,6 +27,8 @@ void Odometry_estimation_imgonly::processFrame(const cv::Mat& frame) {
     trackingFrame(frame);
     if (camera_poses.size() % 10 == 0) bundleAdjustment();
   }
+  // 매칭할 이미지 최신화
+  prev_image = current_image;
 }
 void Odometry_estimation_imgonly::initializeMap(const cv::Mat& frame) {
   std::vector<cv::KeyPoint> keypoints;
