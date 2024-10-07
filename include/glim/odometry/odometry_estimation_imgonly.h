@@ -29,9 +29,7 @@ struct ReprojectionError {
     residuals[1] = predicate_y - T(observe_y);
     return true;
   }
-  static ceres::CostFunction* BA_CostFunction(const double x, const double y) {
-    return new ceres::AutoDiffCostFunction<ReprojectionError, 2, 6, 3>(new ReprojectionError(x, y));
-  }
+  static ceres::CostFunction* BA_CostFunction(const double x, const double y) { return new ceres::AutoDiffCostFunction<ReprojectionError, 2, 6, 3>(new ReprojectionError(x, y)); }
   double observe_x;
   double observe_y;
 };
@@ -41,7 +39,9 @@ public:
   Odometry_estimation_imgonly();
   virtual ~Odometry_estimation_imgonly() override;
   virtual void insert_image(const double stamp, const cv::Mat& image) override;
-  void initializeFeature(const cv::Mat& current_image);
+  void processFrame(const cv::Mat& frame);
+  void initializeMap(const cv::Mat& frame);
+  void trackingFrame(const cv::Mat& frame);
   void bundleAdjustment();
 
 private:
@@ -53,4 +53,6 @@ private:
   std::vector<cv::Point3f> map_points;
   cv::Mat camera_matrix;
   std::vector<cv::Mat> camera_poses;
+  bool is_initialized = false;
+
 };
