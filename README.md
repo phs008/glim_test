@@ -9,9 +9,9 @@ visual slam 의 front 요소중 필수인 keyframe 선정 등에 적합하지 �
 본 개발에서는 visual odometry 관점에서만 구현진행함.
 
 기본 컨샙은 mono odometry (slam) 형태로서 
-1. 이미지 간의 feature 를 기반으로 pnp 를 수행
-2. pnp 를 이용하여 초기 camera pose 추정
-3. 추정된 camera pose frame 이 30개 이상일 경우 한번씩 BA 수행
+1. 초기 frame 을 이용하여 Essential Matrix 기반 카메라 pose 추정 -> Triangulation 을 통해 3D points 획득 
+2. 획득한 3D points 와 새로운 frame 의 feature point 를 이용하여 pnp 를 수행하고 camera pose estimation
+3. 추정된 camera pose frame 이 10개 이상일 경우 한번씩 BA 수행
 으로 이뤄진다.
 
 - ***수정및추가된부분:*** src/glim/odometry/odometry_estimation_imgonly.cpp
